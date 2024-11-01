@@ -6,12 +6,14 @@ public class Associate : MonoBehaviour
 
     public bool debug;
 
-    [Range(-10,10)]
+    [Range(0,100)]
     [Tooltip("DEBUGGING")]
-    private float standing;
+    private int standing;
 
     public float Affinity{
-        get{ return Mathf.RoundToInt(standing); }
+        get{
+            return standing / 20;
+        }
     }
     
     public string LogMessage{
@@ -23,20 +25,32 @@ public class Associate : MonoBehaviour
         }
     }
 
-    public void ChangeStanding(float delta){
+    public void ChangeStanding(int delta){
         if(debug){
             Debug.Log($"adding {delta} to standing ({standing}): {standing + delta}");
         }
 
         standing += delta;
+
+        ClampStanding();
     }
 
-    public void SetStanding(float value){
+    public void SetStanding(int value){
         if(debug){
             Debug.Log($"setting standing to {value}");
         }
 
         standing = value;
+
+        ClampStanding();
+    }
+
+    public int GetStanding(){
+        return standing;
+    }
+
+    private void ClampStanding(){
+        standing = Mathf.Clamp(standing, 0, 100);
     }
 
     public void Log(){
