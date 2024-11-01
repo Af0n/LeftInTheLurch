@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Associate : MonoBehaviour
@@ -9,10 +8,19 @@ public class Associate : MonoBehaviour
 
     [Range(-10,10)]
     [Tooltip("DEBUGGING")]
-    public float standing;
+    private float standing;
 
     public float Affinity{
         get{ return Mathf.RoundToInt(standing); }
+    }
+    
+    public string LogMessage{
+        get{
+            if(debug){
+                return $"{title}\nAffinity of {Affinity}\nStanding of {standing}";
+            }
+            return $"{title}\nAffinity of {Affinity}";
+        }
     }
 
     public void ChangeStanding(float delta){
@@ -32,10 +40,10 @@ public class Associate : MonoBehaviour
     }
 
     public void Log(){
-        if(debug){
-            Debug.Log($"{title}\nAffinity of {Affinity}\nStanding of {standing}");
-            return;
-        }
-        Debug.Log($"{title}\nAffinity of {Affinity}");
+        Debug.Log(LogMessage);
+    }
+
+    public void ToggleDebug(){
+        debug = !debug;
     }
 }
