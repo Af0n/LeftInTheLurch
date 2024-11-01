@@ -10,12 +10,20 @@ public class Associate : MonoBehaviour
     [Tooltip("DEBUGGING")]
     private int standing;
 
+    /* Standing - Standing : Affinity
+        0 - 14 : 0; hatred
+        15-39  : 1; dislike
+        40-64  : 2; neutral
+        65-89  : 3; like
+        90-100 : 4; love
+    */
     public float Affinity{
         get{
-            return standing / 20;
+            return (standing + 10) / 25;
         }
     }
     
+    // Message to be displayed when Logging
     public string LogMessage{
         get{
             if(debug){
@@ -25,6 +33,7 @@ public class Associate : MonoBehaviour
         }
     }
 
+    // changes standing by delta amount
     public void ChangeStanding(int delta){
         if(debug){
             Debug.Log($"adding {delta} to standing ({standing}): {standing + delta}");
@@ -35,6 +44,7 @@ public class Associate : MonoBehaviour
         ClampStanding();
     }
 
+    // directly set standing
     public void SetStanding(int value){
         if(debug){
             Debug.Log($"setting standing to {value}");
@@ -49,6 +59,7 @@ public class Associate : MonoBehaviour
         return standing;
     }
 
+    // clamps standing between 0-100
     private void ClampStanding(){
         standing = Mathf.Clamp(standing, 0, 100);
     }
