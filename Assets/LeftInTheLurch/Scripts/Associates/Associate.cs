@@ -1,14 +1,19 @@
 using UnityEngine;
 
-public class Associate : MonoBehaviour
-{
-    public string title;
+[CreateAssetMenu(fileName = "Associate", menuName = "My Assets/Associate", order = 0)]
 
+public class Associate : ScriptableObject {
+    [Tooltip("Name of Associate")]
+    public string title;
+    [Tooltip("Theme of Associate")]
+    public ThemeID theme;
+    [Space]
     public bool debug;
 
-    [Range(0,100)]
-    [Tooltip("DEBUGGING")]
+    // 0-100
     private int standing;
+
+    private static int defaultStanding = 55;
 
     /* Standing - Standing : Affinity
         0 - 14 : 0; hatred
@@ -27,7 +32,7 @@ public class Associate : MonoBehaviour
     public string LogMessage{
         get{
             if(debug){
-                return $"{title}\nAffinity of {Affinity}\nStanding of {standing}";
+                return $"{title} : {theme}\nAffinity of {Affinity}\nStanding of {standing}";
             }
             return $"{title}\nAffinity of {Affinity}";
         }
@@ -62,6 +67,10 @@ public class Associate : MonoBehaviour
     // clamps standing between 0-100
     private void ClampStanding(){
         standing = Mathf.Clamp(standing, 0, 100);
+    }
+
+    public void ResetStanding(){
+        standing = defaultStanding;
     }
 
     public void Log(){
