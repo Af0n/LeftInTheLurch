@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Associate", menuName = "My Assets/Associate", order = 0)]
+[CreateAssetMenu(fileName = "Associate", menuName = "Scriptable Objects/Associate", order = 0)]
 
 public class Associate : ScriptableObject {
     [Tooltip("Name of Associate")]
